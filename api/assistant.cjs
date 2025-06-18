@@ -18,9 +18,8 @@ module.exports = async function handler(req, res) {
   if (!question) {
     res.status(400).json({ error: 'No question provided' });
     return;
-  };
-  }
 
+ }
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     res.status(500).json({ error: 'Missing OPENAI_API_KEY' });
