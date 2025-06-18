@@ -1,12 +1,17 @@
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 export default async function handler(req, res) {
+    console.log('Method:', req.method);
+  console.log('Body raw:', req.body);
+
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
     return;
   }
 
   const { question } = req.body || {};
+    console.log('Question:', question);
+
   if (!question) {
     res.status(400).json({ error: 'No question provided' });
     return;
