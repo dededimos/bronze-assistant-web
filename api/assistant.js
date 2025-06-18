@@ -4,8 +4,8 @@ export default async function handler(req, res) {
     return;
   }
 
-  let body = '';
-     await new Promise((resolve) => {
+   let body = '';
+ await new Promise((resolve) => {
     req.on('data', (chunk) => (body += chunk));
     req.on('end', resolve);
   });
