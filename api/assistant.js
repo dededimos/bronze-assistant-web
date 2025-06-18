@@ -4,10 +4,20 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { question } = req.body || {};
+  let body = '';
+  for await (const chunk of req) {
+    body += chunk;
+  }
+  let question = '';
+  try {
+    const parsed = JSON.parse(body || '{}');
+    question = parsed.question;
+  } catch (e) {}
+
   if (!question) {
     res.status(400).json({ error: 'No question provided' });
     return;
+  };
   }
 
   const apiKey = process.env.OPENAI_API_KEY;
