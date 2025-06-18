@@ -43,24 +43,16 @@
       const a = document.getElementById('answer');
       a.style.display = 'block';
       a.textContent = '⌛ Περιμένετε...';
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',,
-          'Authorization': 'Bearer YOUR_OPENAI_KEY'
-          '
-        },
-        body: JSON.stringify({
-          model: 'gpt-4o',
-          messages: [
-            { role: 'system', content: 'Είσαι ένας επαγγελματικός βοηθός για είδη μπάνιου Bronze.' },
-            { role: 'user', content: q }
-          ]
-        })
-      });
-      const data = await response.json();
-      a.textContent = data.choices?.[0]?.message?.content || '❌ Κάτι πήγε στραβά.';
-    }
+      const response = await fetch('/api/assistant', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ question: q })
+    });
+const data = await response.json();
+    a.textContent = data.answer || '❌ κάτι πήγε στραβά.';
+  }
   </script>
 </body>
 </html>
