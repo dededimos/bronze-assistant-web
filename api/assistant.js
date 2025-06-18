@@ -5,9 +5,10 @@ export default async function handler(req, res) {
   }
 
   let body = '';
-  for await (const chunk of req) {
-    body += chunk;
-  }
+     await new Promise((resolve) => {
+    req.on('data', (chunk) => (body += chunk));
+    req.on('end', resolve);
+  });
   let question = '';
   try {
     const parsed = JSON.parse(body || '{}');
